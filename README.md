@@ -30,3 +30,4 @@ The Vacation Packing List web application enables users to efficiently manage th
 ----------------------------------
 
 The web application manages information about the created packing lists and the items they contain. Packing lists consist of a collection of items that users need for their trip. These items can be added by the user or selected from a predefined list. The application securely stores this data, allowing users easy access and management of their information.
+In addition to the mentioned features, it should be noted that initially, the lists can only be printed and saved as PDFs. Afterwards, it should be possible to save the packing lists in local storage so that they are still available when the page is revisited. Finally, the lists should be saved in a database and accessible on a subpage where all saved lists can be found.
