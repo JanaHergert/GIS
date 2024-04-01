@@ -17,7 +17,7 @@ The web application consists of the following main pages:
 2.  *Create Packing List*: On this page, users can create a new packing list for their trip. They can add, remove, or edit items and customize the list according to their needs.
 3.  *Saved Packing Lists*: Users can access their saved packing lists, view them, and make modifications as necessary.
 
-##Functionality of the Web Application
+## Functionality of the Web Application
 ------------------------------------
 
 The Vacation Packing List web application enables users to efficiently manage their travel preparations. Here are some key features of the application:
