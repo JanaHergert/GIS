@@ -13,8 +13,8 @@ body{
     padding: 20px 0;
     width: 100%;
     align-items: center;
-
 }
+
 h2 {
     font-family:Arial, Helvetica, sans-serif ;
     color: darkcyan;
@@ -22,6 +22,7 @@ h2 {
     text-align: center; 
     justify-content: center;
 }
+
 .box {
     width:100px;
     color: white;
@@ -31,6 +32,7 @@ h2 {
     text-align: center;
     font-family:Arial, Helvetica, sans-serif ;
 }
+
 .column {
     display: flex;
     align-items: center;
@@ -38,6 +40,7 @@ h2 {
     padding: 20px;
     flex-direction: row;
 }
+
 .center{
     text-align: left;
     border: 2px solid darkcyan;
@@ -84,8 +87,6 @@ h2 {
 ul{
     list-style-type: none;
 }
-
-
 
 input[type=checkbox]{
     /* opacity: 0; */
