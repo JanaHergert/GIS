@@ -1,10 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-    <meta charset="utf-8" />
-    <title>MY PACKING LIST</title>
-    </head>
-    <body>
-        <p>Create your personal packing list.</p>
-    </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meine Packliste</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://kit.fontawesome.com/c31cb86864.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Meine Packliste</h1>
+  </div>
+
+  <div class="column">
+    <div class="left">
+      <h2>Schon mal hier gewesen?</h2>
+      <p>Meine Listen</p>
+    </div>
+
+    <div class="center">
+      <span>
+        <h2>Reise nach XY </h2> 
+        <i class="fa-solid fa-print" style="color: #008b8b;"></i>
+      </span>
+      <div class="input-container">
+        <input type="text" id="myInput" placeholder="Das fehlt noch...">
+        <span class="add">Ok</span>
+      </div>
+      <ul id="myUL">
+        <li>
+          <input type="checkbox" name="check1" id="check1">
+          <label for="check1">Füge dein Gepäck hinzu.</label>
+          <i class="fa-solid fa-trash fa-xs" style="color: #008b8b;"></i>
+        </li>
+      </ul>
+    </div>
+
+    <div class="right">
+      <p>Erstelle deine personalisierte Packliste, um perfekt auf dein nächstes Reiseziel vorbereitet zu sein.</p>
+      <div class="box"> NEUE LISTE</div>
+    </div>
+  </div>
+
+  <div class="images">
+    <img src="https://cdn.pixabay.com/photo/2018/05/02/17/22/beach-3369140_1280.jpg" alt="Strand">
+    <img src="https://cdn.pixabay.com/photo/2020/01/24/12/29/konigssee-4790116_1280.jpg" alt="Konigssee">
+    <img src="https://cdn.pixabay.com/photo/2020/06/05/13/16/alpine-5263183_1280.jpg" alt="Winterlandschaft">
+  </div>
+
+  <div class="footer">
+    <h1>Gute Reise!</h1>
+    <i class="fa-solid fa-plane fa-2xl" style="color: white;"></i>
+  </div>
+</body>
 </html>
