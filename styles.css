@@ -1,3 +1,6 @@
+:root{
+    --my-main-color: darkcyan
+}
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
@@ -7,7 +10,7 @@ body{
 
 .header, .footer {
     font-family:Arial, Helvetica, sans-serif ;
-    background: darkcyan;
+    background: var(--my-main-color);
     color: white;
     text-align: center;
     padding: 20px 0;
@@ -17,7 +20,7 @@ body{
 
 h2 {
     font-family:Arial, Helvetica, sans-serif ;
-    color: darkcyan;
+    color: var(--my-main-color);
     display: flex;
     text-align: center; 
     justify-content: center;
@@ -26,7 +29,7 @@ h2 {
 .box {
     width:100px;
     color: white;
-    background: darkcyan;
+    background: var(--my-main-color);
     margin: auto;
     padding: 2em;
     text-align: center;
@@ -43,7 +46,7 @@ h2 {
 
 .center{
     text-align: left;
-    border: 2px solid darkcyan;
+    border: 2px solid var(--my-main-color);
     padding: 20px 50px; 
     box-sizing:content-box;
 }
@@ -54,10 +57,10 @@ h2 {
     justify-content: center;
 }
 
+
 .fas{
     font-size: 1.5em;
 }
-
 .input-container {
     display: flex;
     justify-content: center;
@@ -90,11 +93,11 @@ ul{
 
 input[type=checkbox]{
     /* opacity: 0; */
-    color: darkcyan;
-    border: 1px solid darkcyan
+    color: var(--my-main-color);
+    border: 1px solid var(--my-main-color);
 }
 input[type=checkbox]:checked{
-    background-color: darkcyan;
+    background-color: var(--my-main-color);
 }
 
 /* input[type=checkbox]::after {
