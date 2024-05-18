@@ -34,6 +34,7 @@ h2 {
     padding: 2em;
     text-align: center;
     font-family:Arial, Helvetica, sans-serif ;
+    cursor: pointer; 
 }
 
 .column {
@@ -68,6 +69,7 @@ h2 {
 
 .add {
         margin-left: 10px; 
+        cursor: pointer; 
 }
 
 .left,.right{
@@ -79,8 +81,16 @@ h2 {
 }
 
 .fa-trash, .fa-print {
+    color: var(--my-main-color);
     float: inline-end;
     margin: 10px;
+    cursor: pointer; 
+}
+
+.fa-solid.fa-xmark  {
+    color: var(--my-main-color); 
+    cursor: pointer; 
+    margin-left: auto;
 }
 
 .fa-plane {
