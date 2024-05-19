@@ -80,13 +80,19 @@ h2 {
     width: calc(33.33% - 20px);
 }
 
-.fa-trash, .fa-print {
+.fa-print {
     color: var(--my-main-color);
     float: inline-end;
     margin: 10px;
     cursor: pointer; 
 }
 
+.fa-trash {
+    color: var(--my-main-color);
+    margin: 10px;
+    cursor: pointer; 
+    justify-content: flex-end;
+}
 .fa-solid.fa-xmark  {
     color: var(--my-main-color); 
     cursor: pointer; 

@@ -64,19 +64,19 @@ function addNewList() {
     currentListIndex = lists.length - 1;
 
     let newCenterColumn = document.createElement("div");
-    newCenterColumn.className = "center";
-    newCenterColumn.innerHTML = `
-        <span>
-            <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
-            <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-            <i class="fa-solid fa-xmark" onclick="clearList()"></i>
-        </span>
-        <div class="input-container">
-            <input type="text" placeholder="Das fehlt noch..." class="new-input">
-            <button class="add" onclick="addNewElement(this)">Ok</button>
-        </div>
-        <ul class="new-ul"></ul>
-    `;
+newCenterColumn.className = "center";
+newCenterColumn.innerHTML = `
+    <span>
+        <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
+        <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
+        <i class="fa-solid fa-xmark" onclick="clearList(); resetRightColumn();"></i>
+    </span>
+    <div class="input-container">
+        <input type="text" placeholder="Das fehlt noch..." class="new-input">
+        <button class="add" onclick="addNewElement(this)">Ok</button>
+    </div>
+    <ul class="new-ul"></ul>
+`
     document.querySelector(".column").appendChild(newCenterColumn);
 }
 
@@ -143,7 +143,7 @@ function showList(index) {
         <span>
             <h2 contenteditable="true" onblur="updateTitle(this)">${list.title}</h2> 
             <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-            <i class="fa-solid fa-xmark" onclick="clearList()"></i>
+            class="fa-solid fa-xmark" onclick="clearList()">
         </span>
         <div class="input-container">
             <input type="text" id="myInput" placeholder="Das fehlt noch...">
@@ -199,7 +199,6 @@ function clearList() {
     lists[currentListIndex].items = []; // Leere auch die Liste im Speicher
 }
 
-
 function resetCenterColumn() {
     let centerColumn = document.querySelector('.center');
     centerColumn.innerHTML = `
@@ -219,8 +218,10 @@ function resetCenterColumn() {
 
 function resetRightColumn() {
     let rightColumn = document.querySelector('.right');
-    rightColumn.style.display = "block";
+    rightColumn.remove();
 }
+
+
 
 function showPrintOptions() {
     let popup = document.createElement("div");
