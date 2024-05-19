@@ -135,6 +135,17 @@ input[type=checkbox]:checked{
     margin: 0 auto;
 }
 
+.popup {
+    position: fixed;
+    top: 50px; /* Beispielwert, passt die Position nach Bedarf an */
+    left: 50%; /* Beispielwert, passt die Position nach Bedarf an */
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    z-index: 999; /* Stelle sicher, dass das Pop-up über anderen Inhalten liegt */
+}
+
 @media only screen and (max-width: 768px) {
     .column {
         flex-direction: column;

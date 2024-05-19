@@ -24,11 +24,13 @@
             margin-bottom: 10px;
         }
     </style>
-    
+
 <div id="printOptionsPopup" class="popup">
     <h2>Meine Packliste ausdrucken</h2>
-    <select id="printerDropdown">
-        <option value="">Verfügbare Drucker</option>
-    </select>
-</div>
-
+        <label for="printerSelect">Verfügbare Drucker:</label>
+        <select id="printerSelect">
+            <option>Mein Drucker</option>
+        </select>
+        <button onclick="closePopup()">Drucken</button>
+        <button onclick="closePopup()">Schließen</button>
+/div>

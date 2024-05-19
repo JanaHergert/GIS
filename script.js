@@ -68,8 +68,8 @@ function addNewList() {
     newCenterColumn.innerHTML = `
         <span>
             <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
-            <i class="fa-solid fa-print"  onclick="showPrintOptions()"></i>
-            <i class="fa-solid fa-xmark" onclick="clearList(this)"></i>
+            <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
+            <i class="fa-solid fa-xmark" onclick="clearList()"></i>
         </span>
         <div class="input-container">
             <input type="text" placeholder="Das fehlt noch..." class="new-input">
@@ -143,7 +143,7 @@ function showList(index) {
         <span>
             <h2 contenteditable="true" onblur="updateTitle(this)">${list.title}</h2> 
             <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-            <i class="fa-solid fa-xmark" onclick="clearList(this)"></i>
+            <i class="fa-solid fa-xmark" onclick="clearList()"></i>
         </span>
         <div class="input-container">
             <input type="text" id="myInput" placeholder="Das fehlt noch...">
@@ -184,65 +184,62 @@ function showList(index) {
     
         ul.appendChild(li);
     });
-    }
-    
-    function updateTitle(element) {
+}
+
+function updateTitle(element) {
     lists[currentListIndex].title = element.textContent;
-    }
-    
-    function resetCenterColumn() {
-        let centerColumn = document.querySelector('.center');
-        centerColumn.innerHTML = `
-            <span>
-                <h2 contenteditable="true" onblur="updateTitle(this)">Reise nach XY</h2> 
-                <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-                <i class="fa-solid fa-xmark" onclick="resetCenterColumn()"></i>
-            </span>
-            <div class="input-container">
-                <input type="text" id="myInput" placeholder="Das fehlt noch...">
-                <button id="add" class="add">Ok</button>
-            </div>
-            <ul id="myUL"></ul>
-        `;
-        document.getElementById("add").addEventListener("click", addElement);
-    }
-    function resetRightColumn() {
-        let rightColumn = document.querySelector('.right');
-        rightColumn.style.display = "block";
-        let centerColumn = document.querySelector('.center');
-        centerColumn.innerHTML = '';  // Leert die mittlere Spalte
-    }
+}
+function clearList() {
+    let ul = document.getElementById("myUL");
+    ul.innerHTML = ""; // Leere die Liste
 
-    function clearList(element) {
-        let ul = element.closest('.center').querySelector('ul');
-        ul.innerHTML = "";
-        lists[currentListIndex].items = [];
-    }
+    let titleElement = document.querySelector('.center h2');
+    titleElement.textContent = "Reise nach XY"; // Setze die Überschrift zurück
 
-    
-    
-    
-    function showPrintOptions() {
+    lists[currentListIndex].items = []; // Leere auch die Liste im Speicher
+}
+
+
+function resetCenterColumn() {
+    let centerColumn = document.querySelector('.center');
+    centerColumn.innerHTML = `
+        <span>
+            <h2 contenteditable="true" onblur="updateTitle(this)">Reise nach XY</h2> 
+            <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
+            <i class="fa-solid fa-xmark" onclick="clearList()"></i>
+        </span>
+        <div class="input-container">
+            <input type="text" id="myInput" placeholder="Das fehlt noch...">
+            <button id="add" class="add">Ok</button>
+        </div>
+        <ul id="myUL"></ul>
+    `;
+    document.getElementById("add").addEventListener("click", addElement);
+}
+
+function resetRightColumn() {
+    let rightColumn = document.querySelector('.right');
+    rightColumn.style.display = "block";
+}
+
+function showPrintOptions() {
     let popup = document.createElement("div");
     popup.className = "popup";
     popup.innerHTML = `
-        <h2>Druckoptionen</h2>
-        <p>Meine Packliste als PDF speichern und drucken</p>
-        <p>Meine Packliste ausdrucken</p>
+        <h2>Meine Packliste ausdrucken</h2>
         <label for="printerSelect">Verfügbare Drucker:</label>
         <select id="printerSelect">
-            <option>Verfügbare Drucker</option>
             <option>Mein Drucker</option>
         </select>
+        <button onclick="closePopup()">Drucken</button>
         <button onclick="closePopup()">Schließen</button>
     `;
     document.body.appendChild(popup);
-    }
-    
-    function closePopup() {
+}
+
+function closePopup() {
     let popup = document.querySelector(".popup");
     if (popup) {
         document.body.removeChild(popup);
     }
-    }
-    
+}
