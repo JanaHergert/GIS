@@ -63,13 +63,15 @@ function addNewList() {
     lists.push(newList);
     currentListIndex = lists.length - 1;
 
-    let newCenterColumn = document.createElement("div");
-newCenterColumn.className = "center";
-newCenterColumn.innerHTML = `
+    let newRightColumn = document.createElement("div");
+newRightColumn.className = "right";
+newRightColumn.id = "rList";
+
+newRightColumn.innerHTML = `
     <span>
         <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
         <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-        <i class="fa-solid fa-xmark" onclick="clearList(); resetRightColumn();"></i>
+        <i class="fa-solid fa-xmark" onclick="resetRightColumn();"></i>
     </span>
     <div class="input-container">
         <input type="text" placeholder="Das fehlt noch..." class="new-input">
@@ -77,7 +79,7 @@ newCenterColumn.innerHTML = `
     </div>
     <ul class="new-ul"></ul>
 `
-    document.querySelector(".column").appendChild(newCenterColumn);
+    document.querySelector(".column").appendChild(newRightColumn);
 }
 
 function addNewElement(button) {
@@ -190,6 +192,7 @@ function updateTitle(element) {
     lists[currentListIndex].title = element.textContent;
 }
 function clearList() {
+    
     let ul = document.getElementById("myUL");
     ul.innerHTML = ""; // Leere die Liste
 
@@ -198,6 +201,8 @@ function clearList() {
 
     lists[currentListIndex].items = []; // Leere auch die Liste im Speicher
 }
+
+
 
 function resetCenterColumn() {
     let centerColumn = document.querySelector('.center');
@@ -218,7 +223,10 @@ function resetCenterColumn() {
 
 function resetRightColumn() {
     let rightColumn = document.querySelector('.right');
-    rightColumn.remove();
+    let rightColumnList = document.getElementById('rList');
+    rightColumn.style.display = "block";
+    rightColumnList.remove();
+
 }
 
 

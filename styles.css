@@ -175,3 +175,9 @@ input[type=checkbox]:checked{
     }
 }
 
+@media only print {
+    body{
+        background-color: black;
+
+    }
+}
