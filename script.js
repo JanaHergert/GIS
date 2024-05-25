@@ -28,7 +28,7 @@ function addElement() {
     li.appendChild(text);
 
     let trashIcon = document.createElement("i");
-    trashIcon.className = "fa-solid fa-trash fa-xs";
+    trashIcon.className = "fas fa-solid fa-trash fa-xs";
     trashIcon.style.color = "#008b8b";
     trashIcon.style.cursor = "pointer";
     trashIcon.addEventListener("click", function() {
@@ -70,8 +70,8 @@ newRightColumn.id = "rList";
 newRightColumn.innerHTML = `
     <span>
         <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
-        <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-        <i class="fa-solid fa-xmark" onclick="resetRightColumn();"></i>
+        <i class="fas fa-solid fa-print" onclick="showPrintOptions()"></i>
+        <i class="fas fa-solid fa-xmark" onclick="resetRightColumn();"></i>
     </span>
     <div class="input-container">
         <input type="text" placeholder="Das fehlt noch..." class="new-input">
@@ -107,7 +107,7 @@ function addNewElement(button) {
     li.appendChild(text);
 
     let trashIcon = document.createElement("i");
-    trashIcon.className = "fa-solid fa-trash fa-xs";
+    trashIcon.className = "fas fa-solid fa-trash fa-xs";
     trashIcon.style.color = "#008b8b";
     trashIcon.style.cursor = "pointer";
     trashIcon.addEventListener("click", function() {
@@ -144,8 +144,8 @@ function showList(index) {
     centerColumn.innerHTML = `
         <span>
             <h2 contenteditable="true" onblur="updateTitle(this)">${list.title}</h2> 
-            <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-            class="fa-solid fa-xmark" onclick="clearList()">
+            <i class="fas fa-solid fa-print" onclick="showPrintOptions()"></i>
+            class="fas fa-solid fa-xmark" onclick="clearList()">
         </span>
         <div class="input-container">
             <input type="text" id="myInput" placeholder="Das fehlt noch...">
@@ -175,7 +175,7 @@ function showList(index) {
         li.appendChild(text);
     
         let trashIcon = document.createElement("i");
-        trashIcon.className = "fa-solid fa-trash fa-xs";
+        trashIcon.className = "fas fa-solid fa-trash fa-xs";
         trashIcon.style.color = "#008b8b";
         trashIcon.style.cursor = "pointer";
         trashIcon.addEventListener("click", function() {
@@ -191,6 +191,7 @@ function showList(index) {
 function updateTitle(element) {
     lists[currentListIndex].title = element.textContent;
 }
+
 function clearList() {
     
     let ul = document.getElementById("myUL");
@@ -209,8 +210,8 @@ function resetCenterColumn() {
     centerColumn.innerHTML = `
         <span>
             <h2 contenteditable="true" onblur="updateTitle(this)">Reise nach XY</h2> 
-            <i class="fa-solid fa-print" onclick="showPrintOptions()"></i>
-            <i class="fa-solid fa-xmark" onclick="clearList()"></i>
+            <i class="fas fa-solid fa-print" onclick="showPrintOptions()"></i>
+            <i class="fas fa-solid fa-xmark" onclick="clearList()"></i>
         </span>
         <div class="input-container">
             <input type="text" id="myInput" placeholder="Das fehlt noch...">
@@ -226,7 +227,6 @@ function resetRightColumn() {
     let rightColumnList = document.getElementById('rList');
     rightColumn.style.display = "block";
     rightColumnList.remove();
-
 }
 
 
@@ -252,3 +252,35 @@ function closePopup() {
         document.body.removeChild(popup);
     }
 }
+
+function PrintElem(elemId) {
+    var ul = document.getElementById(elemId);
+    var parentDiv = ul.closest('.center ');
+    let span = parentDiv.querySelector('span');
+
+    let title = span.firstElementChild.innerHTML;
+
+    let titleH = title[0];
+    console.log(span);
+
+    console.log(title);
+    var printWindow = window.open('', '', 'height=400,width=600');
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('@media print { body * { visibility: hidden; }');
+    printWindow.document.write('#' + elemId + ', h2' + ', #' + elemId + ' * { visibility: visible; }');
+    printWindow.document.write('#' + elemId +', h2' + ' { position: relative;text-align: left; width: 100%; font-size: large;} }');
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h2>');
+
+    printWindow.document.write(title);
+    printWindow.document.write('</h2>');
+
+    printWindow.document.write(ul.outerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+    }

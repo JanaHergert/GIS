@@ -1,6 +1,7 @@
 :root{
     --my-main-color: darkcyan
 }
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
@@ -39,20 +40,23 @@ h2 {
 
 .column {
     display: flex;
-    align-items: center;
-    gap: 50px;
-    padding: 20px;
+    align-items: start;
+    gap: 3%;
+    padding: 2%;
+    width: 100%;
+    box-sizing: border-box;
     flex-direction: row;
 }
 
-.center{
+.center, #rList{
     text-align: left;
     border: 2px solid var(--my-main-color);
-    padding: 20px 50px; 
-    box-sizing:content-box;
+    padding: 3%; 
+    box-sizing:border-box;
+    /* max-width: 30%; */
 }
 
-.center span {
+.center span, .right span{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -62,6 +66,7 @@ h2 {
 .fas{
     font-size: 1.5em;
 }
+
 .input-container {
     display: flex;
     justify-content: center;
@@ -78,6 +83,13 @@ h2 {
 
 .left, .center,.right {
     width: calc(33.33% - 20px);
+    padding: 2%;
+    box-sizing: border-box;
+}
+
+.newRightColumn{
+    text-align: center;
+    
 }
 
 .fa-print {
@@ -112,6 +124,7 @@ input[type=checkbox]{
     color: var(--my-main-color);
     border: 1px solid var(--my-main-color);
 }
+
 input[type=checkbox]:checked{
     background-color: var(--my-main-color);
 }
@@ -174,10 +187,11 @@ input[type=checkbox]:checked{
         box-sizing: border-box;
     }
 }
-
-@media only print {
-    body{
-        background-color: black;
-
+/* 
+@media print {
+    #header,
+    #footer,
+    #nav {
+      display: none !important;
     }
-}
+  } */
