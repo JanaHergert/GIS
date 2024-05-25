@@ -269,7 +269,7 @@ function PrintElem(elemId) {
     printWindow.document.write('<style>');
     printWindow.document.write('@media print { body * { visibility: hidden; }');
     printWindow.document.write('#' + elemId + ', h2' + ', #' + elemId + ' * { visibility: visible; }');
-    printWindow.document.write('#' + elemId +', h2' + ' { position: relative;text-align: left; width: 100%; font-size: large;} }');
+    printWindow.document.write('#' + elemId +', h2' + ' { position: relative;text-align: left; list-style-type: none; width: 100%; font-size: large;} }');
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write('<h2>');
