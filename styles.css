@@ -9,7 +9,7 @@ body{
     box-sizing: border-box;
 }
 
-.header, .footer {
+header, footer {
     font-family:Arial, Helvetica, sans-serif ;
     background: var(--my-main-color);
     color: white;
@@ -25,6 +25,11 @@ h2 {
     display: flex;
     text-align: center; 
     justify-content: center;
+}
+
+.green{
+    color: #008b8b;
+
 }
 
 .box {
@@ -165,8 +170,22 @@ input[type=checkbox]:checked{
     z-index: 999; /* Stelle sicher, dass das Pop-up über anderen Inhalten liegt */
 }
 
+#centerLists{
+    margin: 2% auto;
+    display: grid;
+    position: relative;
+    width: 80%;
+    justify-content: center;
+
+}
+.green ~ p{
+    text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
     .column {
+        display: flex;
+        align-items: center;
         flex-direction: column;
         gap: 20px; 
     }
