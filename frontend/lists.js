@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="de">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Listen</title>
-    
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
-
-</head>
-<header></header>
-
-<h2 class="green">Meine Listen</h2>
-<p>Hier werden deine Listen gespeichert.</p>
-<div id="centerLists" >
-
-</div>
-
-<script>
 //  alert("Check");
     var cList= document.getElementById("centerLists");
     var list = document.createElement("ul");
@@ -54,7 +34,3 @@ if (jsonString) {
     });
 }
 
-
-
-</script>
-<footer></footer>

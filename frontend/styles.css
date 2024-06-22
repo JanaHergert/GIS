@@ -104,6 +104,10 @@ h2 {
     cursor: pointer; 
 }
 
+.fa-floppy-disk{
+    cursor: pointer;
+}
+
 .fa-trash {
     color: var(--my-main-color);
     margin: 10px;

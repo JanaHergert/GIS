@@ -17,7 +17,150 @@ function addHeaderFooter() {
 
 let ul = document.getElementById("myUL");
 
+//server
+async function loadData() {
+    const response = await fetch("http://127.0.0.1:3000/items");
+    const items = await response.json();
+    console.log(items);
+    // Hier kannst du die geladenen Items in dein UI einfügen
+    items.forEach(item => {
+      addItemToUI(item);
+    });
+  }
 
+  const form = document.querySelector('form');
+
+// form.addEventListener('submit', async (event) => {
+//   event.preventDefault();
+
+//   const formData = new FormData(form);
+//   const text = formData.get('text');
+
+//   try {
+//     const response = await fetch('http://localhost:3000/items', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({ text })
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Failed to add item');
+//     }
+
+//     const newItem = await response.json();
+//     console.log('Added item:', newItem);
+//   } catch (error) {
+//     console.error('Error adding item:', error.message);
+//   }
+// });
+
+const centerList = document.getElementById('center-list');
+
+// Funktion zum Laden der gespeicherten Elemente aus der Datenbank
+async function loadItems() {
+  try {
+    const response = await fetch('http://localhost:3000/items');
+    if (!response.ok) {
+      throw new Error('Failed to load items');
+    }
+    const items = await response.json();
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.text;
+      centerList.appendChild(li);
+    });
+  } catch (error) {
+    console.error('Error loading items:', error.message);
+  }
+}
+
+// Aufruf der Funktion zum Laden der Elemente beim Laden der Seite
+document.addEventListener('DOMContentLoaded', () => {
+  loadItems();
+});
+
+// Event-Listener für das Hinzufügen neuer Elemente
+// const form = document.getElementById('add-item-form');
+
+  
+  async function saveItem(text) {
+    const response = await fetch("http://127.0.0.1:3000/items", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text })
+    });
+    const newItem = await response.json();
+    addItemToUI(newItem);
+  }
+  
+  async function updateItem(id, updatedData) {
+    const response = await fetch(`http://127.0.0.1:3000/items/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedData)
+    });
+    const updatedItem = await response.json();
+    // Aktualisiere das UI entsprechend
+  }
+  
+  async function deleteItem(id) {
+    await fetch(`http://127.0.0.1:3000/items/${id}`, {
+      method: 'DELETE'
+    });
+    // Entferne das Item aus dem UI
+  }
+  
+  function addItemToUI(item) {
+    let ul = document.getElementById("myUL");
+    let li = document.createElement("li");
+  
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = item.checked;
+    checkbox.addEventListener("change", async function () {
+      await updateItem(item.id, { text: item.text, checked: this.checked ? 1 : 0 });
+      if (this.checked) {
+        li.style.textDecoration = "line-through";
+      } else {
+        li.style.textDecoration = "none";
+      }
+    });
+    li.appendChild(checkbox);
+  
+    let text = document.createTextNode(item.text);
+    li.appendChild(text);
+  
+    let trashIcon = document.createElement("i");
+    trashIcon.className = "fas fa-solid fa-trash fa-xs";
+    trashIcon.style.color = "#008b8b";
+    trashIcon.style.cursor = "pointer";
+    trashIcon.addEventListener("click", async function () {
+      await deleteItem(item.id);
+      ul.removeChild(li);
+    });
+    li.appendChild(trashIcon);
+  
+    ul.appendChild(li);
+  }
+  
+//   document.getElementById("add").addEventListener("click", async function () {
+//     let input = document.getElementById("myInput").value;
+//     if (input === '') {
+//       alert("Bitte gib etwas ein!");
+//       return;
+//     }
+//     await saveItem(input);
+//     document.getElementById("myInput").value = "";
+//   });
+  
+//   loadData();
+  
 
 
 // add = ok button in class center
@@ -73,10 +216,6 @@ function addElement() {
 }
 
 
-
-
-
-
 // newListButton = Neue Liste button in class right
 if(document.getElementById("newListButton")){
 document.getElementById("newListButton").addEventListener("click", addNewList);
@@ -110,7 +249,7 @@ function addNewList() {
     newRightColumn.innerHTML = `
     <span>
         <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
-        <i class="fas fa-solid fa-print" onclick="showPrintOptions()"></i>
+        <i class="fa-solid fa-print" onclick="PrintrightElem('rightUlId')"></i>
         <i class="fa-regular fa-floppy-disk" style="color: #008b8b;"></i>
         <i class="fas fa-solid fa-xmark" onclick="resetRightColumn();"></i>
     </span>
@@ -187,7 +326,7 @@ function showList(index) {
     centerColumn.innerHTML = `
         <span>
             <h2 contenteditable="true" onblur="updateTitle(this)">${list.title}</h2> 
-            <i class="fas fa-solid fa-print" onclick="showPrintOptions()"></i>
+            <i class="fas fa-solid fa-print" onclick="PrintElem(elemId)"></i>
             class="fas fa-solid fa-xmark" onclick="clearList()">
         </span>
         <div class="input-container">
@@ -276,7 +415,7 @@ function resetRightColumn() {
 
 
 // placeholder print window (nonfunctional)
-function showPrintOptions() {
+/* function showPrintOptions() {
     let popup = document.createElement("div");
     popup.className = "popup";
     popup.innerHTML = `
@@ -290,7 +429,7 @@ function showPrintOptions() {
     `;
     document.body.appendChild(popup);
 }
-
+ */
 function closePopup() {
     let popup = document.querySelector(".popup");
     if (popup) {
@@ -302,7 +441,8 @@ function closePopup() {
 // open browser print window and print center list
 function PrintElem(elemId) {
     var ul = document.getElementById(elemId);
-    var parentDiv = ul.closest('.center ');
+    var parentDiv = ul.closest('.center');
+
     let span = parentDiv.querySelector('span');
 
     let title = span.firstElementChild.innerHTML;
@@ -333,6 +473,39 @@ function PrintElem(elemId) {
 }
 
 
+// // open browser print window and print right list
+// function PrintrightElem(rightelemId) {
+//     var ul = document.getElementById(rightelemId);
+//     var parentDiv = ul.closest('.right');
+
+//     let span = parentDiv.querySelector('span');
+
+//     let title = span.firstElementChild.innerHTML;
+
+//     let titleH = title[0];
+//     console.log(span);
+
+//     console.log(title);
+//     var printWindow = window.open('', '', 'height=400,width=600');
+//     printWindow.document.write('<html><head><title>Print</title>');
+//     printWindow.document.write('<style>');
+//     printWindow.document.write('@media print { body * { visibility: hidden; }');
+//     printWindow.document.write('#' + rightelemId + ', h2' + ', #' + rightelemId + ' * { visibility: visible; }');
+//     printWindow.document.write('#' + rightelemId + ', h2' + ' {font-family:Arial,Helvetica, sans-serif ; relative;text-align: left; list-style-type: none; width: 100%; font-size: large;} }');
+//     printWindow.document.write('</style>');
+//     printWindow.document.write('</head><body>');
+//     printWindow.document.write('<h2>');
+
+//     printWindow.document.write(title);
+//     printWindow.document.write('</h2>');
+
+//     printWindow.document.write(ul.outerHTML);
+//     printWindow.document.write('</body></html>');
+//     printWindow.document.close();
+//     printWindow.focus();
+//     printWindow.print();
+//     printWindow.close();
+// }
 
 
 
@@ -364,3 +537,33 @@ function SaveElem(elemId) {
 
     alert("Data saved: " + jsonString);
 }
+
+
+// function SaverightElem(rightelemId) {
+//     var ul = document.getElementById(rightelemId);
+//     var listItems = ul.querySelectorAll('li');
+//     var listData = [];
+
+//     listItems.forEach(function(item) {
+//         // Remove the checkbox input and trash icon from the text content
+//         var input = item.querySelector('input[type="checkbox"]');
+//         var trashIcon = item.querySelector('i');
+        
+//         // Temporarily hide input and icon to get only the text content
+//         if (input) input.style.display = 'none';
+//         if (trashIcon) trashIcon.style.display = 'none';
+
+//         var text = item.textContent.trim();
+
+//         // Restore the display of input and icon
+//         if (input) input.style.display = '';
+//         if (trashIcon) trashIcon.style.display = '';
+
+//         listData.push({ text: text });
+//     });
+
+//     var jsonString = JSON.stringify(listData);
+//     localStorage.setItem("listData", jsonString);
+
+//     alert("Data saved: " + jsonString);
+// }
