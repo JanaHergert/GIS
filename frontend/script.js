@@ -28,33 +28,33 @@ async function loadData() {
     });
   }
 
-  const form = document.querySelector('form');
+  const add = document.querySelector('#add');
 
-// form.addEventListener('submit', async (event) => {
-//   event.preventDefault();
+add.addEventListener('submit', async (event) => {
+  // event.preventDefault();
 
-//   const formData = new FormData(form);
-//   const text = formData.get('text');
+  const formData = new FormData(form);
+  const text = formData.get('text');
 
-//   try {
-//     const response = await fetch('http://localhost:3000/items', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ text })
-//     });
+  try {
+    const response = await fetch('http://localhost:3000/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text })
+    });
 
-//     if (!response.ok) {
-//       throw new Error('Failed to add item');
-//     }
+    if (!response.ok) {
+      throw new Error('Failed to add item');
+    }
 
-//     const newItem = await response.json();
-//     console.log('Added item:', newItem);
-//   } catch (error) {
-//     console.error('Error adding item:', error.message);
-//   }
-// });
+    const newItem = await response.json();
+    console.log('Added item:', newItem);
+  } catch (error) {
+    console.error('Error adding item:', error.message);
+  }
+ });
 
 const centerList = document.getElementById('center-list');
 
@@ -71,6 +71,7 @@ async function loadItems() {
       li.textContent = item.text;
       centerList.appendChild(li);
     });
+    console.log("async function loadItems()");
   } catch (error) {
     console.error('Error loading items:', error.message);
   }
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Event-Listener für das Hinzufügen neuer Elemente
-// const form = document.getElementById('add-item-form');
+const form2 = document.getElementById('add-item-form');
 
   
   async function saveItem(text) {
@@ -159,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //     document.getElementById("myInput").value = "";
 //   });
   
-//   loadData();
+  loadData();
   
 
 
@@ -212,7 +213,7 @@ function addElement() {
     ul.appendChild(li);
     document.getElementById("myInput").value = "";
 
-    lists[currentListIndex].items.push(input);
+    // lists[currentListIndex].items.push(input);
 }
 
 
@@ -249,15 +250,15 @@ function addNewList() {
     newRightColumn.innerHTML = `
     <span>
         <h2 contenteditable="true" onblur="updateTitle(this)">${title}</h2> 
-        <i class="fa-solid fa-print" onclick="PrintrightElem('rightUlId')"></i>
-        <i class="fa-regular fa-floppy-disk" style="color: #008b8b;"></i>
+        <i class="fa-solid fa-print" onclick="PrintrightElem('new-ul')"></i>
+        <i class="fa-regular fa-floppy-disk" onclick="SaverightElem('new-ul')" style="color: #008b8b;"></i>
         <i class="fas fa-solid fa-xmark" onclick="resetRightColumn();"></i>
     </span>
     <div class="input-container">
         <input type="text" placeholder="Das fehlt noch..." class="new-input">
         <button class="add" onclick="addNewElement(this)">Ok</button>
     </div>
-    <ul class="new-ul"></ul>
+    <ul id="new-ul"></ul>
 `
     document.querySelector(".column").appendChild(newRightColumn);
 }
@@ -474,38 +475,38 @@ function PrintElem(elemId) {
 
 
 // // open browser print window and print right list
-// function PrintrightElem(rightelemId) {
-//     var ul = document.getElementById(rightelemId);
-//     var parentDiv = ul.closest('.right');
+function PrintrightElem(rightelemId) {
+    var ul = document.getElementById(rightelemId);
+    var parentDiv = ul.closest('.right');
 
-//     let span = parentDiv.querySelector('span');
+    let span = parentDiv.querySelector('span');
 
-//     let title = span.firstElementChild.innerHTML;
+    let title = span.firstElementChild.innerHTML;
 
-//     let titleH = title[0];
-//     console.log(span);
+    let titleH = title[0];
+    console.log(span);
 
-//     console.log(title);
-//     var printWindow = window.open('', '', 'height=400,width=600');
-//     printWindow.document.write('<html><head><title>Print</title>');
-//     printWindow.document.write('<style>');
-//     printWindow.document.write('@media print { body * { visibility: hidden; }');
-//     printWindow.document.write('#' + rightelemId + ', h2' + ', #' + rightelemId + ' * { visibility: visible; }');
-//     printWindow.document.write('#' + rightelemId + ', h2' + ' {font-family:Arial,Helvetica, sans-serif ; relative;text-align: left; list-style-type: none; width: 100%; font-size: large;} }');
-//     printWindow.document.write('</style>');
-//     printWindow.document.write('</head><body>');
-//     printWindow.document.write('<h2>');
+    console.log(title);
+    var printWindow = window.open('', '', 'height=400,width=600');
+    printWindow.document.write('<html><head><title>Print</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('@media print { body * { visibility: hidden; }');
+    printWindow.document.write('#' + rightelemId + ', h2' + ', #' + rightelemId + ' * { visibility: visible; }');
+    printWindow.document.write('#' + rightelemId + ', h2' + ' {font-family:Arial,Helvetica, sans-serif ; relative;text-align: left; list-style-type: none; width: 100%; font-size: large;} }');
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h2>');
 
-//     printWindow.document.write(title);
-//     printWindow.document.write('</h2>');
+    printWindow.document.write(title);
+    printWindow.document.write('</h2>');
 
-//     printWindow.document.write(ul.outerHTML);
-//     printWindow.document.write('</body></html>');
-//     printWindow.document.close();
-//     printWindow.focus();
-//     printWindow.print();
-//     printWindow.close();
-// }
+    printWindow.document.write(ul.outerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+}
 
 
 
@@ -539,31 +540,32 @@ function SaveElem(elemId) {
 }
 
 
-// function SaverightElem(rightelemId) {
-//     var ul = document.getElementById(rightelemId);
-//     var listItems = ul.querySelectorAll('li');
-//     var listData = [];
+function SaverightElem(rightelemId) {
+  
+    var ul = document.getElementById(rightelemId);
+    var listItems = ul[i].querySelectorAll('li');
+    var listDataR = [];
 
-//     listItems.forEach(function(item) {
-//         // Remove the checkbox input and trash icon from the text content
-//         var input = item.querySelector('input[type="checkbox"]');
-//         var trashIcon = item.querySelector('i');
+    listItems.forEach(function(item) {
+        // Remove the checkbox input and trash icon from the text content
+        var input = item.querySelector('input[type="checkbox"]');
+        var trashIcon = item.querySelector('i');
         
-//         // Temporarily hide input and icon to get only the text content
-//         if (input) input.style.display = 'none';
-//         if (trashIcon) trashIcon.style.display = 'none';
+        // Temporarily hide input and icon to get only the text content
+        if (input) input.style.display = 'none';
+        if (trashIcon) trashIcon.style.display = 'none';
 
-//         var text = item.textContent.trim();
+        var text = item.textContent.trim();
 
-//         // Restore the display of input and icon
-//         if (input) input.style.display = '';
-//         if (trashIcon) trashIcon.style.display = '';
+        // Restore the display of input and icon
+        if (input) input.style.display = '';
+        if (trashIcon) trashIcon.style.display = '';
 
-//         listData.push({ text: text });
-//     });
+        listDataR.push({ text: text });
+    });
 
-//     var jsonString = JSON.stringify(listData);
-//     localStorage.setItem("listData", jsonString);
+    var jsonString2 = JSON.stringify(listDataR);
+    localStorage.setItem("listDataR"+i, jsonString2);
 
-//     alert("Data saved: " + jsonString);
-// }
+    alert("Data saved: " + jsonString2);
+}

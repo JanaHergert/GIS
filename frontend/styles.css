@@ -174,7 +174,7 @@ input[type=checkbox]:checked{
     z-index: 999; /* Stelle sicher, dass das Pop-up über anderen Inhalten liegt */
 }
 
-#centerLists{
+#centerLists, #rightLists{
     margin: 2% auto;
     display: grid;
     position: relative;

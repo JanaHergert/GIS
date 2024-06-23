@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
     body += chunk.toString();
   });
 
-   req.on('end', () => {
+  req.on('end', () => {
     switch (url.pathname) {
       case '/items':
         if (req.method === 'GET') {
