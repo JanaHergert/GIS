@@ -7,7 +7,7 @@ const port = 3000;
 const db = new sqlite3.Database(':memory:');
 
 db.serialize(() => {
-  db.run("CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, checked INTEGER)");
+  db.run("CREATE TABLE items (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, text TEXT,   checked INTEGER, col TEXT)");
 });
 
 const server = http.createServer((req, res) => {
@@ -43,14 +43,14 @@ const server = http.createServer((req, res) => {
             }
           });
         } else if (req.method === 'POST') {
-          const { text } = JSON.parse(body);
-          db.run("INSERT INTO items (text, checked) VALUES (?, ?)", [text, 0], function(err) {
+          const {text, title, col, checked } = JSON.parse(body);
+          db.run("INSERT INTO items (text, title, col, checked) VALUES (?, ?, ?, ?)", [text, title, col, checked], function(err) {
             if (err) {
               res.writeHead(500);
               res.end(JSON.stringify({ error: 'Database error' }));
             } else {
               res.writeHead(201);
-              res.end(JSON.stringify({ id: this.lastID, text, checked: 0 }));
+              res.end(JSON.stringify({  id: this.lastID, text, title, col, checked }));
             }
           });
         }
@@ -58,14 +58,14 @@ const server = http.createServer((req, res) => {
       case `/items/${url.pathname.split('/')[2]}`:
         const id = url.pathname.split('/')[2];
         if (req.method === 'PUT') {
-          const { text, checked } = JSON.parse(body);
-          db.run("UPDATE items SET text = ?, checked = ? WHERE id = ?", [text, checked, id], function(err) {
+          const { text, title, col, checked } = JSON.parse(body);
+          db.run("UPDATE items SET title= ?, text = ?, col = ?, checked = ? WHERE id = ?", [title, text,  col, checked, id], function(err) {
             if (err) {
               res.writeHead(500);
               res.end(JSON.stringify({ error: 'Database error' }));
             } else {
               res.writeHead(200);
-              res.end(JSON.stringify({ id, text, checked }));
+              res.end(JSON.stringify({  id, text, title, col, checked }));
             }
           });
         } else if (req.method === 'DELETE') {
@@ -88,6 +88,18 @@ const server = http.createServer((req, res) => {
   });
 });
 
+// db.run("DELETE FROM items", function(err) {
+//   if(err){
+//       console.log(err)
+//   }
+//   else{
+//       console.log("Successful");
+//   }
+//   db.close();
+// });
+
+
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
+  console.log("DB:"+db);
 });
